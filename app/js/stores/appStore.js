@@ -5,18 +5,7 @@ var assign = require('react/lib/Object.assign');
 var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
-var items = ['item1', 'item2'];
-
-function addItem(item) {
-  items.push(item);
-}
-
-function removeItem(item) {
-  var index = items.indexOf(item);
-  if(index !== -1) {
-    items.splice(index, 1);
-  }
-}
+var _data;
 
 var appStore = assign(EventEmitter.prototype, {
   emitChange: function() {
@@ -31,22 +20,20 @@ var appStore = assign(EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getItems: function () {
-    return items;
+  getData: function () {
+    return _data;
   },
 
   dispatcherIndex: appDispatcher.register(function (payload) {
     switch(payload.type) {
-      case constants.ADD_ITEM:
-      addItem(payload.item);
-      break;
-
-      case constants.REMOVE_ITEM:
-      removeItem(payload.item);
-      break;
-
       case constants.API_CALL:
-      addItem('ITEM FROM API');
+      _data = payload.response.data.children.map(function(item) {
+          var itemURL = item.data.url;
+          if(itemURL.indexOf('.jpg') === -1) {
+              itemURL = itemURL+'.jpg';
+          }
+         return {title: item.data.title, url:itemURL};
+      });
       break;
     }
 

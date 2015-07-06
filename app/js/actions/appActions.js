@@ -1,6 +1,6 @@
 var appDispatcher = require('../dispatcher/appDispatcher');
 var constants = require('../constants/appConstants');
-var api = require('../utils/appApi.js')
+var api = require('../utils/appApi.js');
 
 module.exports = {
     addItem: function(item) {
@@ -10,17 +10,11 @@ module.exports = {
         });
     },
 
-    removeItem: function(item) {
-        appDispatcher.dispatch({
-            type: constants.REMOVE_ITEM,
-            item: item
-        });
-    },
-
     makeAPIcall: function() {
-        api.externalCall().then(function() {
+        api.externalCall().then(function(stub) {
             appDispatcher.dispatch({
-                type: constants.API_CALL
+                type: constants.API_CALL,
+                response: stub
             });
         });
     }
