@@ -32,7 +32,7 @@ var appStore = assign(EventEmitter.prototype, {
           if(itemURL.indexOf('.jpg') === -1) {
               itemURL = itemURL+'.jpg';
           }
-         return {title: item.data.title, url:itemURL};
+         return {title: item.data.title, url:itemURL, type:item.data.subreddit, ups:item.data.ups, downs:item.data.downs, score:item.data.score};
       });
       break;
     }
