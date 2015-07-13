@@ -27,7 +27,7 @@ var Items = React.createClass({
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                 appActions.makeAPIcall();
             }
-        }, 900);
+        }, 500);
     },
     loadMore: function() {
         appActions.makeAPIcall();
@@ -37,8 +37,8 @@ var Items = React.createClass({
             <div>
             <ul className="content__wrapper">
                 {this.state.items ?
-                    this.state.items.map(function (item) {
-                        return <Item title={item.title} type={item.type} url={item.url} score={item.score}/>;
+                    this.state.items.map(function (item, i) {
+                        return <Item key={i} scrollPos={this.state.scrollPos} title={item.title} type={item.type} url={item.url} score={item.score}/>;
                     })
                 : <li> no data </li> }
             </ul>

@@ -1,11 +1,12 @@
 var React = require('react');
 
 var Item = React.createClass({
-
     componentDidMount: function() {
-
+        var node = this.getDOMNode();
+        window.onscroll = function(event) {
+            console.log(node.scrollHeight);
+        };
     },
-
     render: function() {
         return (<li className="content__post">
             <header className="content__post-header">
