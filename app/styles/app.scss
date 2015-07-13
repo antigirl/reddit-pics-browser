@@ -10,20 +10,22 @@ body {
     color: rgba(#000000, 0.8);
 }
 .content__post {
-    background: #fff;
-    box-shadow: 0 0 0 1px rgba(0,0,0,.05),0 1px 1px rgba(0,0,0,.1);
-    border-radius: 3px;
-    padding: 20px;
+    //background: #fff;
+    //box-shadow: 0 0 0 1px rgba(0,0,0,.05),0 1px 1px rgba(0,0,0,.1);
+    //border-radius: 3px;
+    //padding: 20px;
     width: 100%;
     margin-bottom: 20px;
 }
 .content__post-header {
+    background: #fff;
     margin-bottom: 15px;
     font-size: 22px;
     font-family: Roboto,'Helvetica Neue',Helvetica,Arial,sans-serif;
     font-weight: 300;
     color: #444;
     overflow: hidden;
+    width:500px; 
     div {
         float: right;
         width: 10%;
@@ -34,6 +36,12 @@ body {
         width: 80%;
     }
 }
+
+.content__post-active {
+    position: fixed;
+    top: 0;
+}
+
 .content__image {
     width: 500px;
 }

@@ -7,6 +7,7 @@
     "browser-request": "^0.3.3",
     "browserify": "^10.2.4",
     "flux": "^2.0.3",
+    "lodash.throttle": "^3.0.4",
     "node-libs-browser": "^0.5.2",
     "promise": "~7.0.3",
     "react": "^0.13.3",

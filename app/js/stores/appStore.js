@@ -5,7 +5,7 @@ var assign = require('react/lib/Object.assign');
 var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
-var _data;
+var _data = [];
 var _page;
 
 var appStore = assign(EventEmitter.prototype, {
@@ -26,15 +26,15 @@ var appStore = assign(EventEmitter.prototype, {
   },
 
   dispatcherIndex: appDispatcher.register(function (payload) {
-    switch(payload.type) {
+    switch (payload.type) {
       case constants.API_CALL:
-      _data = payload.response.data.children.map(function(item) {
+      payload.response.data.children.forEach( function (item) {
           var itemURL = item.data.url;
           var itemType = item.data.subreddit;
-          if(itemURL.indexOf('.jpg') === -1) {
+          if (itemURL.indexOf('.jpg') === -1) {
               itemType = 'link';
           }
-         return {title: item.data.title, url:itemURL, type:itemType, ups:item.data.ups, downs:item.data.downs, score:item.data.score};
+         _data.push({title: item.data.title, url:itemURL, type:itemType, ups:item.data.ups, downs:item.data.downs, score:item.data.score});
       });
       break;
     }

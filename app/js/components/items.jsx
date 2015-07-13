@@ -1,6 +1,8 @@
 var React = require('react');
 var appStore = require('../stores/appStore.js');
 var appActions = require('../actions/appActions');
+var Item = require('./item');
+var throttler = require('lodash.throttle');
 
 var Items = React.createClass({
     getInitialState: function() {
@@ -10,9 +12,9 @@ var Items = React.createClass({
     },
     componentWillMount: function() {
         var _this = this;
-//set up listener before render function
-//any time change is emitted, make sure to update state
-//updating state will re-render then
+        //set up listener before render function
+        //any time change is emitted, make sure to update state
+        //updating state will re-render then
         appStore.addChangeListener(function() {
             _this.setState({
                 items: appStore.getData()
@@ -21,30 +23,25 @@ var Items = React.createClass({
     },
     componentDidMount: function() {
         appActions.makeAPIcall();
+        window.onscroll = throttler(function() {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                appActions.makeAPIcall();
+            }
+        }, 900);
     },
     loadMore: function() {
-        appActions.makeAPIcall();  
+        appActions.makeAPIcall();
     },
     render: function() {
-        var bg;
         return (
             <div>
             <ul className="content__wrapper">
                 {this.state.items ?
                     this.state.items.map(function (item) {
-                        bg = { 'background-image': 'url(' + item.url + ')' };
-                        return (<li className="content__post">
-                            <header className="content__post-header">
-                                <p>{item.title}</p>
-                                <div><span className="content__post-score">{item.score}</span></div>
-                            </header>
-                            {item.type=='link' ? <a href={item.url}>link to post</a> : <img className="content__image" src={item.url}/>}
-                        </li>);
+                        return <Item title={item.title} type={item.type} url={item.url} score={item.score}/>;
                     })
                 : <li> no data </li> }
             </ul>
-
-            <button className="showmore" onclick={this.loadMore}>show more</button>
         </div>
         );
     }
