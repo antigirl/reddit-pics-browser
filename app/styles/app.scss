@@ -24,12 +24,10 @@ body {
     font-weight: 300;
     color: #444;
     overflow: hidden;
-
     div {
         float: right;
         width: 10%;
     }
-
     p {
         float: left;
         margin: 0;
@@ -39,7 +37,6 @@ body {
 .content__image {
     width: 500px;
 }
-
 .content__post-score {
     background: rgba(#000000, 0.4);
     color: #fff;
@@ -50,4 +47,15 @@ body {
     display: block;
     line-height: 3em;
     text-align: center;
+}
+.showmore {
+    margin: 0 auto;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-size: 16px;
+    color: white;
+    display: block;
+    line-height: 15px;
+    outline: none;
 }

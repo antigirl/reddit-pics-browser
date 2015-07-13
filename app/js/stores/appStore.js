@@ -6,6 +6,7 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE_EVENT = 'change';
 
 var _data;
+var _page;
 
 var appStore = assign(EventEmitter.prototype, {
   emitChange: function() {
@@ -29,10 +30,11 @@ var appStore = assign(EventEmitter.prototype, {
       case constants.API_CALL:
       _data = payload.response.data.children.map(function(item) {
           var itemURL = item.data.url;
+          var itemType = item.data.subreddit;
           if(itemURL.indexOf('.jpg') === -1) {
-              itemURL = itemURL+'.jpg';
+              itemType = 'link';
           }
-         return {title: item.data.title, url:itemURL, type:item.data.subreddit, ups:item.data.ups, downs:item.data.downs, score:item.data.score};
+         return {title: item.data.title, url:itemURL, type:itemType, ups:item.data.ups, downs:item.data.downs, score:item.data.score};
       });
       break;
     }

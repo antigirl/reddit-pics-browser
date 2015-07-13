@@ -22,25 +22,30 @@ var Items = React.createClass({
     componentDidMount: function() {
         appActions.makeAPIcall();
     },
+    loadMore: function() {
+        appActions.makeAPIcall();  
+    },
     render: function() {
         var bg;
         return (
+            <div>
             <ul className="content__wrapper">
                 {this.state.items ?
                     this.state.items.map(function (item) {
-                        console.log(item);
                         bg = { 'background-image': 'url(' + item.url + ')' };
                         return (<li className="content__post">
                             <header className="content__post-header">
                                 <p>{item.title}</p>
                                 <div><span className="content__post-score">{item.score}</span></div>
                             </header>
-                            <img className="content__image" src={item.url}/>
+                            {item.type=='link' ? <a href={item.url}>link to post</a> : <img className="content__image" src={item.url}/>}
                         </li>);
                     })
                 : <li> no data </li> }
             </ul>
 
+            <button className="showmore" onclick={this.loadMore}>show more</button>
+        </div>
         );
     }
 });
