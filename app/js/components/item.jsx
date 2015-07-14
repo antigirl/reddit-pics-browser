@@ -2,12 +2,19 @@ var React = require('react');
 
 var Item = React.createClass({
     componentDidMount: function() {
-        var node = this.getDOMNode();
-        window.onscroll = function(event) {
-            console.log(node.scrollHeight);
-        };
+    //    var node = this.getDOMNode();
+    //    console.log(node.scrollTop);
+    },
+    shouldComponentUpdate: function(nextProps, nextState) {
+        //console.log(this.props.scrollPos);
+        console.log(this.props.title);
+        //dont render after initial render
+        if (nextProps.scrollPos > 0) {
+            return false;
+        }
     },
     render: function() {
+        //this.props.scrollPos === this.getDOMNode().esajkfdnc.top
         return (<li className="content__post">
             <header className="content__post-header">
                 <p>{this.props.title}</p>

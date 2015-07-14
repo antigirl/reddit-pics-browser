@@ -7,7 +7,8 @@ var throttler = require('lodash.throttle');
 var Items = React.createClass({
     getInitialState: function() {
         return {
-            items: appStore.getData()
+            items: appStore.getData(),
+            position: 0
         };
     },
     componentWillMount: function() {
@@ -23,22 +24,28 @@ var Items = React.createClass({
     },
     componentDidMount: function() {
         appActions.makeAPIcall();
-        window.onscroll = throttler(function() {
-            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                appActions.makeAPIcall();
-            }
-        }, 500);
+        window.addEventListener('scroll', throttler(this.refresh, 50));
+    },
+    componentWillUnmount: function() {
+        window.removeEventListener('scroll', this.refresh);
+    },
+    refresh: function() {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            appActions.makeAPIcall();
+        }
+        this.setState({ position: window.scrollY });
     },
     loadMore: function() {
         appActions.makeAPIcall();
     },
     render: function() {
+        var _self = this;
         return (
             <div>
             <ul className="content__wrapper">
                 {this.state.items ?
                     this.state.items.map(function (item, i) {
-                        return <Item key={i} scrollPos={this.state.scrollPos} title={item.title} type={item.type} url={item.url} score={item.score}/>;
+                        return <Item key={i} scrollPos={_self.state.position} title={item.title} type={item.type} url={item.url} score={item.score}/>;
                     })
                 : <li> no data </li> }
             </ul>
