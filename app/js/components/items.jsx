@@ -7,8 +7,7 @@ var throttler = require('lodash.throttle');
 var Items = React.createClass({
     getInitialState: function() {
         return {
-            items: appStore.getData(),
-            position: 0
+            items: appStore.getData()
         };
     },
     componentWillMount: function() {
@@ -40,12 +39,15 @@ var Items = React.createClass({
     },
     render: function() {
         var _self = this;
+        var x = 1;
         return (
             <div>
             <ul className="content__wrapper">
                 {this.state.items ?
                     this.state.items.map(function (item, i) {
-                        return <Item key={i} scrollPos={_self.state.position} title={item.title} type={item.type} url={item.url} score={item.score}/>;
+                        if(i ==1) {
+                        return <Item key={i} hash={item.hash} scrollPos={_self.state.position} title={item.title} type={item.type} url={item.url} score={item.score}/>;
+                        }
                     })
                 : <li> no data </li> }
             </ul>
