@@ -29,13 +29,13 @@ var appStore = assign(EventEmitter.prototype, {
     switch (payload.type) {
       case constants.API_CALL:
       var response = payload.response.data;
-      response.children.forEach( function (item) {
+      response.children.forEach( function (item, index) {
           var itemURL = item.data.url;
           var itemType = item.data.subreddit;
           if (itemURL.indexOf('.jpg') === -1) {
               itemType = 'link';
           }
-         _data.push({title: item.data.title, url:itemURL, type:itemType, ups:item.data.ups, downs:item.data.downs, score:item.data.score, hash:response.after});
+            _data.push({title: item.data.title, url:itemURL, type:itemType, ups:item.data.ups, downs:item.data.downs, score:item.data.score, hash:response.after});
       });
       break;
     }

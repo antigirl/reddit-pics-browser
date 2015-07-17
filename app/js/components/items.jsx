@@ -45,8 +45,8 @@ var Items = React.createClass({
             <ul className="content__wrapper">
                 {this.state.items ?
                     this.state.items.map(function (item, i) {
-                        if(i ==1) {
-                        return <Item key={i} hash={item.hash} scrollPos={_self.state.position} title={item.title} type={item.type} url={item.url} score={item.score}/>;
+                        if (i < 1) {
+                            return <Item key={i} hash={item.hash} scrollPos={_self.state.position} title={item.title} type={item.type} url={item.url} score={item.score}/>;
                         }
                     })
                 : <li> no data </li> }
